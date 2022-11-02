@@ -60,43 +60,42 @@ class BooksControllerTest extends TestCase
         $response = $this->get(route(
             'api.books.external', ['name' => 'A Game of Thrones']
         ));
-        $response->assertJsonStructure($this->getBookJsonStructure());
 
         $data = $response->json('data');
         
         $this->assertArrayHasKey(
             'name',
-            $data
+            $data[0]
         );
         
         $this->assertArrayHasKey(
             'isbn',
-            $data
+            $data[0]
         );
         
         $this->assertArrayHasKey(
             'authors',
-            $data
+            $data[0]
         );
         
         $this->assertArrayHasKey(
             'number_of_pages',
-            $data
+            $data[0]
         );
         
         $this->assertArrayHasKey(
             'publisher',
-            $data
+            $data[0]
         );
         
         $this->assertArrayHasKey(
             'country',
-            $data
+            $data[0]
         );
         
         $this->assertArrayHasKey(
             'release_date',
-            $data
+            $data[0]
         );   
         
         $this->assertSame(
