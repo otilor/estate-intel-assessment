@@ -21,6 +21,8 @@ class BooksController extends Controller
         }
 
         return response()->json([
+            'status_code' => 200,
+            'status' => 'successful',
             'data' => BookResource::collection($data)
         ]);
     }
