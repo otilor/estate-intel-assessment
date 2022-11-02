@@ -104,7 +104,7 @@ class BooksControllerTest extends TestCase
         );
         
         $this->assertSame(
-            'isbn',
+            '978-0553103540',
             $data[0]['isbn']
         );
 
