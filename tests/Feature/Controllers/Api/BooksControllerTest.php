@@ -4,6 +4,8 @@ namespace Tests\Feature\Controllers\Api;
 
 use Tests\TestCase;
 use App\Services\BookService;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Testing\Fluent\AssertableJson;
 
 class BooksControllerTest extends TestCase
 {
@@ -26,11 +28,10 @@ class BooksControllerTest extends TestCase
      */
     public function testGetBooksByName()
     {
-        $this->partialMock(BookService::class, function ($mock) {
-            $mock->shouldReceive('getExternalBooks')->andReturn(
+        Http::fake([
+            'anapioficeandfire.com/api/*' => Http::response([
                 [
-                    [
-                        'url' => 'https=>//www.anapioficeandfire.com/api/books/1',
+                    'url' => 'https=>//www.anapioficeandfire.com/api/books/1',
                         'name' => 'A Game of Thrones',
                         "isbn" => "978-0553103540",
                         "authors" => [
@@ -40,7 +41,7 @@ class BooksControllerTest extends TestCase
                         "publisher" => "Bantam Books",
                         "country" => "United States",
                         "mediaType" => "Hardcover",
-                        "released" => "1996-08-01T00=>00=>00",
+                        "released" => "1996-08-01T00:00:00",
                         "characters" => [
                             "https://www.anapioficeandfire.com/api/characters/2",
                             "https://www.anapioficeandfire.com/api/characters/12",
@@ -53,10 +54,9 @@ class BooksControllerTest extends TestCase
                             "https://www.anapioficeandfire.com/api/characters/232",
                             "https://www.anapioficeandfire.com/api/characters/339",
                         ]
-                    ]
                 ]
-            );
-        });
+            ])
+        ]);
 
         $response = $this->get(route(
             'api.books.external', ['name' => 'A Game of Thrones']
@@ -135,5 +135,23 @@ class BooksControllerTest extends TestCase
             '1996-08-01',
             $data[0]['release_date']
         );
+    }
+
+    public function testGetBooksByNameReturnsEmptyResult()
+    {
+        Http::preventStrayRequests();
+        Http::fake([
+            'anapioficeandfire.com/api/*' => Http::response([
+                
+            ])
+        ]);
+
+        
+        $response = $this->get(route(
+            'api.books.external', ['name' => 'A Game of Thrones']
+        ));
+
+        $data = $response->json('data');
+        $this->assertCount(0, $data);
     }
 }
