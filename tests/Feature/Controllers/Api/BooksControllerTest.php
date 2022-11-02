@@ -99,7 +99,7 @@ class BooksControllerTest extends TestCase
         );   
         
         $this->assertSame(
-            'name',
+            'A Game of Thrones',
             $data[0]['name']
         );
         
