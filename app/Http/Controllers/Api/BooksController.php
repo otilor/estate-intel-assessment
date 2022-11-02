@@ -11,7 +11,7 @@ class BooksController extends Controller
 {
     public function externalBooks(GetBooksByNameRequest $request)
     {
-        $data = (new BookService())->getExternalBooks($request?->name);
+        $data = json_decode((new BookService())->getExternalBooks($request?->name));
         return response()->json([
             'data' => BookResource::collection($data)
         ]);
