@@ -8,6 +8,7 @@ jobs:
     env:
       DB_DATABASE: laravel
       DB_USERNAME: root
+      ICE_AND_FIRE_API_BASEURL: https://www.anapioficeandfire.com/api/
       DB_PASSWORD: password
       BROADCAST_DRIVER: log
       CACHE_DRIVER: redis
