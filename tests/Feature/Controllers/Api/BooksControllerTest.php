@@ -3,6 +3,7 @@
 namespace Tests\Feature\Controllers\Api;
 
 use Tests\TestCase;
+use App\Services\BookService;
 
 class BooksControllerTest extends TestCase
 {
@@ -26,7 +27,7 @@ class BooksControllerTest extends TestCase
     public function testGetBooksByName()
     {
         $this->partialMock(BookService::class, function ($mock) {
-            $mock->shouldReceive('retrieve')->andReturn(
+            $mock->shouldReceive('getExternalBooks')->andReturn(
                 [
                     [
                         'url' => 'https=>//www.anapioficeandfire.com/api/books/1',
@@ -109,27 +110,29 @@ class BooksControllerTest extends TestCase
         );
 
         $this->assertSame(
-            'authors',
+            [
+                "George R. R. Martin"
+            ],
             $data[0]['authors']
         );
 
         $this->assertSame(
-            'number_of_pages',
+            694,
             $data[0]['number_of_pages']
         );
 
         $this->assertSame(
-            'publisher',
+            'Bantam Books',
             $data[0]['publisher']
         );
 
         $this->assertSame(
-            'country',
+            'United States',
             $data[0]['country']
         );
 
         $this->assertSame(
-            'release_date',
+            '1996-08-01',
             $data[0]['release_date']
         );
     }
