@@ -61,7 +61,7 @@ class BooksControllerTest extends TestCase
             'api.books.external', ['name' => 'A Game of Thrones']
         ));
         $response->assertJsonStructure($this->getBookJsonStructure());
-        
+
         $data = $response->json('data');
         
         $this->assertArrayHasKey(
@@ -98,5 +98,40 @@ class BooksControllerTest extends TestCase
             'release_date',
             $data
         );   
+        
+        $this->assertSame(
+            'name',
+            $data[0]['name']
+        );
+        
+        $this->assertSame(
+            'isbn',
+            $data[0]['isbn']
+        );
+
+        $this->assertSame(
+            'authors',
+            $data[0]['authors']
+        );
+
+        $this->assertSame(
+            'number_of_pages',
+            $data[0]['number_of_pages']
+        );
+
+        $this->assertSame(
+            'publisher',
+            $data[0]['publisher']
+        );
+
+        $this->assertSame(
+            'country',
+            $data[0]['country']
+        );
+
+        $this->assertSame(
+            'release_date',
+            $data[0]['release_date']
+        );
     }
 }
