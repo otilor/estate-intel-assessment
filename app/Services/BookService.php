@@ -8,7 +8,7 @@ class BookService
 {
     public function getExternalBooks(string $name = '')
     {
-        return Http::get(config('iceandfireapi.baseurl') . 'books', [
+        return Http::get(config('iceandfireapi.base_url') . 'books', [
             'name' => $name
         ]);
     }
