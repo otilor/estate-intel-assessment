@@ -150,6 +150,9 @@ class BooksControllerTest extends TestCase
         $response = $this->get(route(
             'api.books.external', ['name' => 'A Game of Thrones']
         ));
+        $response->assertNotFound();
+        $this->assertSame('not found', $response->json()['status']);
+        $this->assertSame(404, $response->json()['status_code']);
 
         $data = $response->json('data');
         $this->assertCount(0, $data);
