@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use DateTime;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class BookResource extends JsonResource
@@ -21,7 +22,7 @@ class BookResource extends JsonResource
             'number_of_pages' => $this->numberOfPages,
             'publisher' => $this->publisher,
             'country' => $this->country,
-            'release_date' => $this->released
+            'release_date' => (new  DateTime($this->released))->format('Y-m-d')
         ];
     }
 }
