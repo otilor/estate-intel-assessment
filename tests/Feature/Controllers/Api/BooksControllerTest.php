@@ -6,6 +6,20 @@ use Tests\TestCase;
 
 class BooksControllerTest extends TestCase
 {
+    protected function getBookJsonStructure():array{
+        return [
+            'loft' => [
+                'name',
+                'isbn',
+                'authors',
+                'number_of_pages',
+                'publisher',
+                'country',
+                'release_date'
+            ]
+        ];
+    }
+
     /**
      * @group books
      */
@@ -46,6 +60,8 @@ class BooksControllerTest extends TestCase
         $response = $this->get(route(
             'api.books.external', ['name' => 'A Game of Thrones']
         ));
+        $response->assertJsonStructure($this->getBookJsonStructure());
+        
         $data = $response->json('data');
         
         $this->assertArrayHasKey(
