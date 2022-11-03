@@ -313,48 +313,48 @@ class BooksControllerTest extends TestCase
         $this->assertSame(200, $response->json()['status_code']);
 
         $data = $response->json('data');
-        $this->assertArrayHasKey('id', $data);
-        $this->assertArrayHasKey('name', $data);
-        $this->assertArrayHasKey('isbn', $data);
-        $this->assertArrayHasKey('authors', $data);
-        $this->assertArrayHasKey('number_of_pages', $data);
-        $this->assertArrayHasKey('publisher', $data);
-        $this->assertArrayHasKey('country', $data);
-        $this->assertArrayHasKey('release_date', $data);
+        $this->assertArrayHasKey('id', $data[0]);
+        $this->assertArrayHasKey('name', $data[0]);
+        $this->assertArrayHasKey('isbn', $data[0]);
+        $this->assertArrayHasKey('authors', $data[0]);
+        $this->assertArrayHasKey('number_of_pages', $data[0]);
+        $this->assertArrayHasKey('publisher', $data[0]);
+        $this->assertArrayHasKey('country', $data[0]);
+        $this->assertArrayHasKey('release_date', $data[0]);
 
         $this->assertSame(
             $book->name,
-            $data['name']
+            $data[0]['name']
         );
         
         $this->assertSame(
             $book->isbn,
-            $data['isbn']
+            $data[0]['isbn']
         );
 
         $this->assertSame(
             $book->authors,
-            $data['authors']
+            $data[0]['authors']
         );
 
         $this->assertSame(
             $book->number_of_pages,
-            $data['number_of_pages']
+            $data[0]['number_of_pages']
         );
 
         $this->assertSame(
             $book->publisher,
-            $data['publisher']
+            $data[0]['publisher']
         );
 
         $this->assertSame(
             $book->country,
-            $data['country']
+            $data[0]['country']
         );
 
         $this->assertSame(
             $book->release_date,
-            $data['release_date']
+            $data[0]['release_date']
         );
     }
 }
