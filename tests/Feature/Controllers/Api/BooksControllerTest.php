@@ -30,7 +30,7 @@ class BooksControllerTest extends TestCase
     /**
      * @group books
      */
-    public function testGetBooksByName()
+    public function testGetBooksByNameFromExternalApi()
     {
         Http::fake([
             'anapioficeandfire.com/api/*' => Http::response([
@@ -288,7 +288,7 @@ class BooksControllerTest extends TestCase
 
         // flush database
         Book::truncate();
-        
+
         // test that it returns empty array
         $response = $this->get(route('api.books.index'));
 
