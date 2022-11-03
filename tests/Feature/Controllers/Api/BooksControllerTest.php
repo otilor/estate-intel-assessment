@@ -183,7 +183,6 @@ class BooksControllerTest extends TestCase
         $this->assertSame(201, $response->json()['status_code']);
 
         $data = $response->json('data');
-        $this->assertArrayHasKey('id', $data);
         $this->assertArrayHasKey('name', $data);
         $this->assertArrayHasKey('isbn', $data);
         $this->assertArrayHasKey('authors', $data);
@@ -191,8 +190,6 @@ class BooksControllerTest extends TestCase
         $this->assertArrayHasKey('publisher', $data);
         $this->assertArrayHasKey('country', $data);
         $this->assertArrayHasKey('release_date', $data);
-        $this->assertArrayHasKey('created_at', $data);
-        $this->assertArrayHasKey('updated_at', $data);
 
         $this->assertSame(
             'A Game of Thrones',
