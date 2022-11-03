@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\BookStoreRequest;
 use App\Http\Requests\GetBooksByNameRequest;
 use App\Services\BookService;
 use App\Http\Resources\BookResource;
@@ -44,7 +45,7 @@ class BooksController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(BookStoreRequest $request)
     {
         //
     }
