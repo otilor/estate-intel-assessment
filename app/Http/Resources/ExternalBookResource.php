@@ -2,10 +2,10 @@
 
 namespace App\Http\Resources;
 
-use DateTime;
 use Illuminate\Http\Resources\Json\JsonResource;
+use DateTime;
 
-class BookResource extends JsonResource
+class ExternalBookResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -19,10 +19,10 @@ class BookResource extends JsonResource
             'name' => $this->name,
             'isbn' => $this->isbn,
             'authors' => $this->authors,
-            'number_of_pages' => $this->number_of_pages,
+            'number_of_pages' => $this->numberOfPages,
             'publisher' => $this->publisher,
             'country' => $this->country,
-            'release_date' => $this->release_date
+            'release_date' => (new  DateTime($this->released))->format('Y-m-d')
         ];
     }
 }

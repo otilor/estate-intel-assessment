@@ -141,6 +141,9 @@ class BooksControllerTest extends TestCase
         );
     }
 
+    /**
+     * @group books
+     */
     public function testGetBooksByNameReturnsEmptyResult()
     {
         Http::preventStrayRequests();
@@ -160,5 +163,99 @@ class BooksControllerTest extends TestCase
 
         $data = $response->json('data');
         $this->assertCount(0, $data);
+    }
+
+    /**
+     * @group books
+     */
+    public function testCreateBook()
+    {
+        $book = [
+            'name' => 'A Game of Thrones',
+            'isbn' => '978-0553103540',
+            'authors' => [
+                'George R. R. Martin'
+            ],
+            'number_of_pages' => 694,
+            'publisher' => 'Bantam Books',
+            'country' => 'United States',
+            'release_date' => '1996-08-01'
+        ];
+
+        $response = $this->post(route('api.books.store'), $book);
+
+        $response->assertCreated();
+        $this->assertSame('success', $response->json()['status']);
+        $this->assertSame(201, $response->json()['status_code']);
+
+        $data = $response->json('data');
+        $this->assertArrayHasKey('name', $data);
+        $this->assertArrayHasKey('isbn', $data);
+        $this->assertArrayHasKey('authors', $data);
+        $this->assertArrayHasKey('number_of_pages', $data);
+        $this->assertArrayHasKey('publisher', $data);
+        $this->assertArrayHasKey('country', $data);
+        $this->assertArrayHasKey('release_date', $data);
+
+        $this->assertSame(
+            'A Game of Thrones',
+            $data['name']
+        );
+        
+        $this->assertSame(
+            '978-0553103540',
+            $data['isbn']
+        );
+
+        $this->assertSame(
+            [
+                "George R. R. Martin"
+            ],
+            $data['authors']
+        );
+
+        $this->assertSame(
+            694,
+            $data['number_of_pages']
+        );
+
+        $this->assertSame(
+            'Bantam Books',
+            $data['publisher']
+        );
+
+        $this->assertSame(
+            'United States',
+            $data['country']
+        );
+
+        $this->assertSame(
+            '1996-08-01',
+            $data['release_date']
+        );
+    }
+
+    /**
+     * @group books
+     */
+    public function test()
+    {
+        $book = [
+            'name' => 'A Game of Thrones',
+            'isbn' => 1,
+            'authors' => [
+                23,
+                23
+            ],
+            'number_of_pages' => 694,
+            'publisher' => 'Bantam Books',
+            'country' => 'United States',
+            'release_date' => '1996-08-01'
+        ];
+
+        $response = $this->post(route('api.books.store'), $book);
+
+        $response->assertUnprocessable();
+        $this->assertSame('Validation errors', $response->json()['message']);
     }
 }
