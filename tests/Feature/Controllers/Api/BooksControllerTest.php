@@ -299,4 +299,62 @@ class BooksControllerTest extends TestCase
         $data = $response->json('data');
         $this->assertCount(0, $data);
     }
+
+    /**
+     * @group books
+     */
+    public function testGetBookByName()
+    {
+        $book = Book::factory()->create();
+        $response = $this->get(route('api.books.index', ['name' => $book->name]));
+
+        $response->assertOk();
+        $this->assertSame('successful', $response->json()['status']);
+        $this->assertSame(200, $response->json()['status_code']);
+
+        $data = $response->json('data');
+        $this->assertArrayHasKey('id', $data);
+        $this->assertArrayHasKey('name', $data);
+        $this->assertArrayHasKey('isbn', $data);
+        $this->assertArrayHasKey('authors', $data);
+        $this->assertArrayHasKey('number_of_pages', $data);
+        $this->assertArrayHasKey('publisher', $data);
+        $this->assertArrayHasKey('country', $data);
+        $this->assertArrayHasKey('release_date', $data);
+
+        $this->assertSame(
+            $book->name,
+            $data['name']
+        );
+        
+        $this->assertSame(
+            $book->isbn,
+            $data['isbn']
+        );
+
+        $this->assertSame(
+            $book->authors,
+            $data['authors']
+        );
+
+        $this->assertSame(
+            $book->number_of_pages,
+            $data['number_of_pages']
+        );
+
+        $this->assertSame(
+            $book->publisher,
+            $data['publisher']
+        );
+
+        $this->assertSame(
+            $book->country,
+            $data['country']
+        );
+
+        $this->assertSame(
+            $book->release_date,
+            $data['release_date']
+        );
+    }
 }
