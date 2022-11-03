@@ -47,7 +47,13 @@ class BooksController extends Controller
      */
     public function store(BookStoreRequest $request)
     {
-        //
+        // save book to database
+        $book = (new BookService())->saveBook($request->validated());
+        return response()->json([
+            'status_code' => 201,
+            'status' => 'success',
+            'data' => new BookResource($book)
+        ])->setStatusCode(201);
     }
 
     /**
