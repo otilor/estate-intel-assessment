@@ -20,3 +20,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('external-books', [BooksController::class, 'externalBooks'])->name('api.books.external');
+Route::prefix('v1')->name('api.')->group(function () {
+    Route::apiResource('books', BooksController::class);
+});
