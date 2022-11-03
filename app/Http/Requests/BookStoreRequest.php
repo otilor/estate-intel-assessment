@@ -24,7 +24,14 @@ class BookStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required|string',
+            'isbn' => 'required|string',
+            'authors' => 'required|array',
+            'authors.*' => 'required|string|distinct',
+            'country' => 'required|string',
+            'number_of_pages' => 'required|integer',
+            'publisher' => 'required|string',
+            'release_date' => 'required|date',
         ];
     }
 }
