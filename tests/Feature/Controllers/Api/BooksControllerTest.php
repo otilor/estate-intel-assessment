@@ -234,4 +234,28 @@ class BooksControllerTest extends TestCase
             $data['release_date']
         );
     }
+
+    /**
+     * @group books
+     */
+    public function test()
+    {
+        $book = [
+            'name' => 'A Game of Thrones',
+            'isbn' => 1,
+            'authors' => [
+                23,
+                23
+            ],
+            'number_of_pages' => 694,
+            'publisher' => 'Bantam Books',
+            'country' => 'United States',
+            'release_date' => '1996-08-01'
+        ];
+
+        $response = $this->post(route('api.books.store'), $book);
+
+        $response->assertUnprocessable();
+        $this->assertSame('Validation errors', $response->json()['message']);
+    }
 }
