@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Controllers\Api;
 
+use App\Models\Book;
 use Tests\TestCase;
 use App\Services\BookService;
 use Illuminate\Support\Facades\Http;
@@ -257,5 +258,28 @@ class BooksControllerTest extends TestCase
 
         $response->assertUnprocessable();
         $this->assertSame('Validation errors', $response->json()['message']);
+    }
+
+    /**
+     * @group books
+     */
+    public function testGetBooks()
+    {
+        Book::factory()->count(3)->create();
+        $response = $this->get(route('api.books.index'));
+
+        $response->assertOk();
+        $this->assertSame('successful', $response->json()['status']);
+        $this->assertSame(200, $response->json()['status_code']);
+
+        $data = $response->json('data');
+        $this->assertCount(3, $data);
+        $this->assertArrayHasKey('name', $data[0]);
+        $this->assertArrayHasKey('isbn', $data[0]);
+        $this->assertArrayHasKey('authors', $data[0]);
+        $this->assertArrayHasKey('number_of_pages', $data[0]);
+        $this->assertArrayHasKey('publisher', $data[0]);
+        $this->assertArrayHasKey('country', $data[0]);
+        $this->assertArrayHasKey('release_date', $data[0]);
     }
 }
