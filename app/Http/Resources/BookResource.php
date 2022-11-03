@@ -19,10 +19,10 @@ class BookResource extends JsonResource
             'name' => $this->name,
             'isbn' => $this->isbn,
             'authors' => $this->authors,
-            'number_of_pages' => $this->numberOfPages,
+            'number_of_pages' => $this->number_of_pages,
             'publisher' => $this->publisher,
             'country' => $this->country,
-            'release_date' => (new  DateTime($this->released))->format('Y-m-d')
+            'release_date' => $this->release_date
         ];
     }
 }
