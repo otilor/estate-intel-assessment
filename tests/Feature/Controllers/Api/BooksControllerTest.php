@@ -276,6 +276,7 @@ class BooksControllerTest extends TestCase
 
         $data = $response->json('data');
         $this->assertCount(3, $data);
+        $this->assertArrayHasKey('id', $data[0]);
         $this->assertArrayHasKey('name', $data[0]);
         $this->assertArrayHasKey('isbn', $data[0]);
         $this->assertArrayHasKey('authors', $data[0]);
