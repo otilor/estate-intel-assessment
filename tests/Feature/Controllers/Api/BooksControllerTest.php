@@ -5,11 +5,13 @@ namespace Tests\Feature\Controllers\Api;
 use App\Models\Book;
 use Tests\TestCase;
 use App\Services\BookService;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Testing\Fluent\AssertableJson;
 
 class BooksControllerTest extends TestCase
 {
+    use RefreshDatabase;
     protected function getBookJsonStructure():array{
         return [
             'loft' => [
