@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use Illuminate\Support\Facades\Http;
+use App\Models\Book;
 
 class BookService
 {
@@ -11,5 +12,10 @@ class BookService
         return Http::get(config('iceandfireapi.base_url') . 'books', [
             'name' => $name
         ]);
+    }
+
+    public function saveBook(array $data)
+    {
+        return Book::create($data);
     }
 }
