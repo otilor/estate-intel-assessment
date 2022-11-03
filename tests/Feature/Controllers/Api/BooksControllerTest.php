@@ -5,13 +5,14 @@ namespace Tests\Feature\Controllers\Api;
 use App\Models\Book;
 use Tests\TestCase;
 use App\Services\BookService;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Testing\Fluent\AssertableJson;
 
 class BooksControllerTest extends TestCase
 {
-    use RefreshDatabase;
+    use DatabaseMigrations;
     protected function getBookJsonStructure():array{
         return [
             'loft' => [
@@ -284,5 +285,18 @@ class BooksControllerTest extends TestCase
         $this->assertArrayHasKey('publisher', $data[0]);
         $this->assertArrayHasKey('country', $data[0]);
         $this->assertArrayHasKey('release_date', $data[0]);
+
+        // flush database
+        Book::truncate();
+        
+        // test that it returns empty array
+        $response = $this->get(route('api.books.index'));
+
+        $response->assertOk();
+        $this->assertSame('successful', $response->json()['status']);
+        $this->assertSame(200, $response->json()['status_code']);
+
+        $data = $response->json('data');
+        $this->assertCount(0, $data);
     }
 }
