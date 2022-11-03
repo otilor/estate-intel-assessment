@@ -141,6 +141,9 @@ class BooksControllerTest extends TestCase
         );
     }
 
+    /**
+     * @group books
+     */
     public function testGetBooksByNameReturnsEmptyResult()
     {
         Http::preventStrayRequests();
@@ -162,6 +165,9 @@ class BooksControllerTest extends TestCase
         $this->assertCount(0, $data);
     }
 
+    /**
+     * @group books
+     */
     public function testCreateBook()
     {
         $book = [
