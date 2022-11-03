@@ -17,4 +17,8 @@ class Book extends Model
         'country',
         'release_date'
     ];
+
+    protected $casts = [
+        'authors' => 'array'
+    ];
 }
