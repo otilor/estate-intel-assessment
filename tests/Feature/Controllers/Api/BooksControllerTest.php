@@ -238,7 +238,7 @@ class BooksControllerTest extends TestCase
     /**
      * @group books
      */
-    public function test()
+    public function testUnprocessableData()
     {
         $book = [
             'name' => 'A Game of Thrones',
