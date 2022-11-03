@@ -9,6 +9,7 @@ use App\Services\BookService;
 use App\Http\Resources\BookResource;
 use App\Http\Resources\ExternalBookResource;
 use Illuminate\Http\Request;
+use App\Models\Book;
 
 class BooksController extends Controller
 {
@@ -37,7 +38,11 @@ class BooksController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json([
+            'status_code' => 200,
+            'status' => 'successful',
+            'data' => BookResource::collection(Book::paginate(15))
+        ]);
     }
 
     /**
