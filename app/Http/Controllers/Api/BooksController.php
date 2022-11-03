@@ -39,6 +39,15 @@ class BooksController extends Controller
      */
     public function index()
     {
+        // if there are no books in the database, return an empty array
+        if (Book::count() === 0) {
+            return response()->json([
+                'status_code' => 200,
+                'status' => 'successful',
+                'data' => []
+            ]);
+        }
+        
         return response()->json([
             'status_code' => 200,
             'status' => 'successful',
