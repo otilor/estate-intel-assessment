@@ -7,6 +7,7 @@ use App\Http\Requests\BookStoreRequest;
 use App\Http\Requests\GetBooksByNameRequest;
 use App\Services\BookService;
 use App\Http\Resources\BookResource;
+use App\Http\Resources\BookResourceWithId;
 use App\Http\Resources\ExternalBookResource;
 use Illuminate\Http\Request;
 use App\Models\Book;
@@ -41,7 +42,7 @@ class BooksController extends Controller
         return response()->json([
             'status_code' => 200,
             'status' => 'successful',
-            'data' => BookResource::collection(Book::paginate(15))
+            'data' => BookResourceWithId::collection(Book::paginate(15))
         ]);
     }
 
