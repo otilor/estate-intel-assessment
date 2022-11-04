@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\BookIndexRequest;
 use App\Http\Requests\BookStoreRequest;
 use App\Http\Requests\GetBooksByNameRequest;
 use App\Services\BookService;
 use App\Http\Resources\BookResource;
+use App\Http\Resources\BookResourceWithId;
 use App\Http\Resources\ExternalBookResource;
 use Illuminate\Http\Request;
 use App\Models\Book;
@@ -36,12 +38,27 @@ class BooksController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(BookIndexRequest $request)
     {
+        // if there are no books in the database, return an empty array
+        if (Book::count() === 0) {
+            return response()->json([
+                'status_code' => 200,
+                'status' => 'successful',
+                'data' => []
+            ]);
+        }
+        // search for books in the database by name, country, release date and publisher
+        $books = Book::where('name', 'like', '%' . $request->name . '%')
+            ->where('country', 'like', '%' . $request->country . '%')
+            ->where('publisher', 'like', '%' . $request->publisher . '%')
+            ->where('release_date', 'like', '%' . $request->release_date . '%')
+            ->paginate(15);
+
         return response()->json([
             'status_code' => 200,
             'status' => 'successful',
-            'data' => BookResource::collection(Book::paginate(15))
+            'data' => BookResourceWithId::collection($books)
         ]);
     }
 
