@@ -497,6 +497,11 @@ class BooksControllerTest extends TestCase
         $this->assertArrayHasKey('release_date', $data[0]);
 
         $this->assertSame(
+            $book->id,
+            $data[0]['id']
+        );
+
+        $this->assertSame(
             $book->name,
             $data[0]['name']
         );
