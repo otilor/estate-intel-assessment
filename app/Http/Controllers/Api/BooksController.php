@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\BookIndexRequest;
 use App\Http\Requests\BookStoreRequest;
 use App\Http\Requests\GetBooksByNameRequest;
 use App\Services\BookService;
@@ -37,7 +38,7 @@ class BooksController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(BookIndexRequest $request)
     {
         // if there are no books in the database, return an empty array
         if (Book::count() === 0) {
@@ -48,10 +49,10 @@ class BooksController extends Controller
             ]);
         }
         // search for books in the database by name, country, release date and publisher
-        $books = Book::where('name', 'like', '%' . request()->name . '%')
-            ->where('country', 'like', '%' . request()->country . '%')
-            ->where('publisher', 'like', '%' . request()->publisher . '%')
-            ->where('release_date', 'like', '%' . request()->release_date . '%')
+        $books = Book::where('name', 'like', '%' . $request->name . '%')
+            ->where('country', 'like', '%' . $request->country . '%')
+            ->where('publisher', 'like', '%' . $request->publisher . '%')
+            ->where('release_date', 'like', '%' . $request->release_date . '%')
             ->paginate(15);
 
         return response()->json([
