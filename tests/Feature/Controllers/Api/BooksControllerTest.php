@@ -483,7 +483,7 @@ class BooksControllerTest extends TestCase
         $response = $this->get(route('api.books.index', ['release_date' => $book->release_date]));
 
         $response->assertOk();
-        $this->assertSame('successful', $response->json()['status']);
+        $this->assertSame('success', $response->json()['status']);
         $this->assertSame(200, $response->json()['status_code']);
 
         $data = $response->json('data');
