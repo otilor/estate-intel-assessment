@@ -531,4 +531,18 @@ class BooksControllerTest extends TestCase
             $data[0]['release_date']
         );
     }
+
+    /**
+     * @group books
+     */
+    public function testDeleteBook()
+    {
+        $book = Book::factory()->create();
+        $response = $this->delete(route('api.books.destroy', ['book' => $book->id]));
+
+        $response->assertNoContent();
+        $this->assertSame('success', $response->json()['status']);
+        $this->assertSame(204, $response->json()['status_code']);
+        $this->assertSame('Book deleted successfully', $response->json()['message']);
+    }
 }
