@@ -67,7 +67,7 @@ class BooksControllerTest extends TestCase
         ));
 
         $response->assertOk();
-        $this->assertSame('successful', $response->json()['status']);
+        $this->assertSame('success', $response->json()['status']);
         $this->assertSame(200, $response->json()['status_code']);
 
         $data = $response->json('data');
