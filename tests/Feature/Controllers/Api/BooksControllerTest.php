@@ -543,5 +543,17 @@ class BooksControllerTest extends TestCase
         $this->assertSame('success', $response->json()['status']);
         $this->assertSame(204, $response->json()['status_code']);
         $this->assertSame("The book $book->name was deleted successfully", $response->json()['message']);
+
+        // test if the book was deleted
+        $this->assertDatabaseMissing('books', [
+            'id' => $book->id,
+            'name' => $book->name,
+            'isbn' => $book->isbn,
+            'authors' => $book->authors,
+            'number_of_pages' => $book->number_of_pages,
+            'publisher' => $book->publisher,
+            'country' => $book->country,
+            'release_date' => $book->release_date,
+        ]);
     }
 }
