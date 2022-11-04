@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\BookIndexRequest;
 use App\Http\Requests\BookStoreRequest;
+use App\Http\Requests\BookUpdateRequest;
 use App\Http\Requests\GetBooksByNameRequest;
 use App\Services\BookService;
 use App\Http\Resources\BookResource;
@@ -110,9 +111,24 @@ class BooksController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(BookUpdateRequest $request, $id)
     {
-        //
+        // if book with the given id does not exist, return 404
+        if (! Book::find($id)) {
+            return response()->json([
+                'status_code' => 404,
+                'status' => 'not found',
+                'data' => []
+            ])->setStatusCode(404);
+        }
+        // update book with the given id
+        $book = (new BookService())->updateBook($request->validated(), $id);
+        return response()->json([
+            'status_code' => 200,
+            'status' => 'success',
+            'message' => "The book $book->name was updated successfully",
+            'data' => new BookResource($book)
+        ]);
     }
 
     /**
