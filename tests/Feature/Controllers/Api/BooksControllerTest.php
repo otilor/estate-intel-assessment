@@ -272,7 +272,7 @@ class BooksControllerTest extends TestCase
         $response = $this->get(route('api.books.index'));
 
         $response->assertOk();
-        $this->assertSame('successful', $response->json()['status']);
+        $this->assertSame('success', $response->json()['status']);
         $this->assertSame(200, $response->json()['status_code']);
 
         $data = $response->json('data');
@@ -293,7 +293,7 @@ class BooksControllerTest extends TestCase
         $response = $this->get(route('api.books.index'));
 
         $response->assertOk();
-        $this->assertSame('successful', $response->json()['status']);
+        $this->assertSame('success', $response->json()['status']);
         $this->assertSame(200, $response->json()['status_code']);
 
         $data = $response->json('data');
@@ -309,7 +309,7 @@ class BooksControllerTest extends TestCase
         $response = $this->get(route('api.books.index', ['name' => $book->name]));
 
         $response->assertOk();
-        $this->assertSame('successful', $response->json()['status']);
+        $this->assertSame('success', $response->json()['status']);
         $this->assertSame(200, $response->json()['status_code']);
 
         $data = $response->json('data');
@@ -367,7 +367,7 @@ class BooksControllerTest extends TestCase
         $response = $this->get(route('api.books.index', ['country' => $book->country]));
 
         $response->assertOk();
-        $this->assertSame('successful', $response->json()['status']);
+        $this->assertSame('success', $response->json()['status']);
         $this->assertSame(200, $response->json()['status_code']);
 
         $data = $response->json('data');
@@ -425,7 +425,7 @@ class BooksControllerTest extends TestCase
         $response = $this->get(route('api.books.index', ['publisher' => $book->publisher]));
 
         $response->assertOk();
-        $this->assertSame('successful', $response->json()['status']);
+        $this->assertSame('success', $response->json()['status']);
         $this->assertSame(200, $response->json()['status_code']);
 
         $data = $response->json('data');
