@@ -18,4 +18,11 @@ class BookService
     {
         return Book::create($data);
     }
+
+    public function updateBook($data, $id)
+    {
+        $book = Book::find($id);
+        $book->update($data);
+        return $book;
+    }
 }
