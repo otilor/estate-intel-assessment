@@ -110,6 +110,23 @@ class BooksController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // delete book with id
+        $book = Book::find($id);
+        if (! $book) {
+            return response()->json([
+                'status_code' => 404,
+                'status' => 'not found',
+                'data' => []
+            ])->setStatusCode(404);
+        }
+
+        $book->delete();
+
+        return response()->json([
+            'status_code' => 204,
+            'message' => "The book $book->name was deleted successfully",
+            'status' => 'success',
+            'data' => []
+        ])->setStatusCode(200);
     }
 }
