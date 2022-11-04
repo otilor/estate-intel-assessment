@@ -87,7 +87,20 @@ class BooksController extends Controller
      */
     public function show($id)
     {
-        //
+        // if book with the given id does not exist, return 404
+        if (! Book::find($id)) {
+            return response()->json([
+                'status_code' => 404,
+                'status' => 'not found',
+                'data' => []
+            ])->setStatusCode(404);
+        }
+        // return book with the given id
+        return response()->json([
+            'status_code' => 200,
+            'status' => 'success',
+            'data' => new BookResourceWithId(Book::find($id))
+        ]);
     }
 
     /**
