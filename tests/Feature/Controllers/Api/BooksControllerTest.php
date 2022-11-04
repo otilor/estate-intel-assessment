@@ -570,4 +570,39 @@ class BooksControllerTest extends TestCase
             'release_date' => $book->release_date,
         ]);
     }
+
+    /**
+     * @group books
+     */
+    public function testUpdateBook()
+    {
+        $book = Book::factory()->create();
+        $response = $this->patch(route('api.books.update', ['book' => $book->id]), [
+            'name' => 'The Lord of the Rings',
+            'isbn' => '978-3-16-148410-0',
+            'authors' => 'J. R. R. Tolkien',
+            'number_of_pages' => 1216,
+            'publisher' => 'Allen & Unwin',
+            'country' => 'New Zealand',
+            'release_date' => '1954-07-29',
+        ]);
+
+        $book->refresh();
+        $response->assertOk();
+        $this->assertSame('success', $response->json()['status']);
+        $this->assertSame(200, $response->json()['status_code']);
+        $this->assertSame("The book $book->name was updated successfully", $response->json()['message']);
+
+        // test if the book was updated
+        $this->assertDatabaseHas('books', [
+            'id' => $book->id,
+            'name' => 'The Lord of the Rings',
+            'isbn' => '978-3-16-148410-0',
+            'authors' => 'J. R. R. Tolkien',
+            'number_of_pages' => 1216,
+            'publisher' => 'Allen & Unwin',
+            'country' => 'New Zealand',
+            'release_date' => '1954-07-29',
+        ]);
+    }
 }
