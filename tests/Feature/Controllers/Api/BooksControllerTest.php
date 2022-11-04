@@ -67,7 +67,7 @@ class BooksControllerTest extends TestCase
         ));
 
         $response->assertOk();
-        $this->assertSame('success', $response->json()['status']);
+        $this->assertSame('successful', $response->json()['status']);
         $this->assertSame(200, $response->json()['status_code']);
 
         $data = $response->json('data');
@@ -272,7 +272,7 @@ class BooksControllerTest extends TestCase
         $response = $this->get(route('api.books.index'));
 
         $response->assertOk();
-        $this->assertSame('success', $response->json()['status']);
+        $this->assertSame('successful', $response->json()['status']);
         $this->assertSame(200, $response->json()['status_code']);
 
         $data = $response->json('data');
@@ -293,7 +293,7 @@ class BooksControllerTest extends TestCase
         $response = $this->get(route('api.books.index'));
 
         $response->assertOk();
-        $this->assertSame('success', $response->json()['status']);
+        $this->assertSame('successful', $response->json()['status']);
         $this->assertSame(200, $response->json()['status_code']);
 
         $data = $response->json('data');
@@ -309,7 +309,7 @@ class BooksControllerTest extends TestCase
         $response = $this->get(route('api.books.index', ['name' => $book->name]));
 
         $response->assertOk();
-        $this->assertSame('success', $response->json()['status']);
+        $this->assertSame('successful', $response->json()['status']);
         $this->assertSame(200, $response->json()['status_code']);
 
         $data = $response->json('data');
@@ -367,7 +367,7 @@ class BooksControllerTest extends TestCase
         $response = $this->get(route('api.books.index', ['country' => $book->country]));
 
         $response->assertOk();
-        $this->assertSame('success', $response->json()['status']);
+        $this->assertSame('successful', $response->json()['status']);
         $this->assertSame(200, $response->json()['status_code']);
 
         $data = $response->json('data');
@@ -425,7 +425,7 @@ class BooksControllerTest extends TestCase
         $response = $this->get(route('api.books.index', ['publisher' => $book->publisher]));
 
         $response->assertOk();
-        $this->assertSame('success', $response->json()['status']);
+        $this->assertSame('successful', $response->json()['status']);
         $this->assertSame(200, $response->json()['status_code']);
 
         $data = $response->json('data');
@@ -474,4 +474,61 @@ class BooksControllerTest extends TestCase
         );
     }
 
+    /**
+     * @group books
+     */
+    public function testGetBookByReleaseDate()
+    {
+        $book = Book::factory()->create();
+        $response = $this->get(route('api.books.index', ['release_date' => $book->release_date]));
+
+        $response->assertOk();
+        $this->assertSame('successful', $response->json()['status']);
+        $this->assertSame(200, $response->json()['status_code']);
+
+        $data = $response->json('data');
+        $this->assertArrayHasKey('id', $data[0]);
+        $this->assertArrayHasKey('name', $data[0]);
+        $this->assertArrayHasKey('isbn', $data[0]);
+        $this->assertArrayHasKey('authors', $data[0]);
+        $this->assertArrayHasKey('number_of_pages', $data[0]);
+        $this->assertArrayHasKey('publisher', $data[0]);
+        $this->assertArrayHasKey('country', $data[0]);
+        $this->assertArrayHasKey('release_date', $data[0]);
+
+        $this->assertSame(
+            $book->name,
+            $data[0]['name']
+        );
+        
+        $this->assertSame(
+            $book->isbn,
+            $data[0]['isbn']
+        );
+
+        $this->assertSame(
+            $book->authors,
+            $data[0]['authors']
+        );
+
+        $this->assertSame(
+            $book->number_of_pages,
+            $data[0]['number_of_pages']
+        );
+
+        $this->assertSame(
+            $book->publisher,
+            $data[0]['publisher']
+        );
+
+        $this->assertSame(
+            $book->country,
+            $data[0]['country']
+        );
+
+        $this->assertSame(
+            $book->release_date,
+            $data[0]['release_date']
+        );
+    }
 }
