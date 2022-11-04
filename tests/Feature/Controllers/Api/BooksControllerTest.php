@@ -587,6 +587,7 @@ class BooksControllerTest extends TestCase
             'release_date' => '1954-07-29',
         ]);
 
+        $book->refresh();
         $response->assertOk();
         $this->assertSame('success', $response->json()['status']);
         $this->assertSame(200, $response->json()['status_code']);
