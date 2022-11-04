@@ -28,7 +28,7 @@ class BooksController extends Controller
 
         return response()->json([
             'status_code' => 200,
-            'status' => 'successful',
+            'status' => 'success',
             'data' => ExternalBookResource::collection($data)
         ]);
     }
@@ -44,7 +44,7 @@ class BooksController extends Controller
         if (Book::count() === 0) {
             return response()->json([
                 'status_code' => 200,
-                'status' => 'successful',
+                'status' => 'success',
                 'data' => []
             ]);
         }
@@ -57,7 +57,7 @@ class BooksController extends Controller
 
         return response()->json([
             'status_code' => 200,
-            'status' => 'successful',
+            'status' => 'success',
             'data' => BookResourceWithId::collection($books)
         ]);
     }
