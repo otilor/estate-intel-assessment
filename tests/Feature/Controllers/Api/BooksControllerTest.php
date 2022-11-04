@@ -237,6 +237,15 @@ class BooksControllerTest extends TestCase
             '1996-08-01',
             $data['release_date']
         );
+
+        $this->assertDatabaseHas('books', [
+            'name' => 'A Game of Thrones',
+            'isbn' => '978-0553103540',
+            'number_of_pages' => 694,
+            'publisher' => 'Bantam Books',
+            'country' => 'United States',
+            'release_date' => '1996-08-01'
+        ]);
     }
 
     /**
