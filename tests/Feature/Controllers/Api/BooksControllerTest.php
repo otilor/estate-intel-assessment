@@ -237,6 +237,15 @@ class BooksControllerTest extends TestCase
             '1996-08-01',
             $data['release_date']
         );
+
+        $this->assertDatabaseHas('books', [
+            'name' => 'A Game of Thrones',
+            'isbn' => '978-0553103540',
+            'number_of_pages' => 694,
+            'publisher' => 'Bantam Books',
+            'country' => 'United States',
+            'release_date' => '1996-08-01'
+        ]);
     }
 
     /**
@@ -530,5 +539,30 @@ class BooksControllerTest extends TestCase
             $book->release_date,
             $data[0]['release_date']
         );
+    }
+
+    /**
+     * @group books
+     */
+    public function testDeleteBook()
+    {
+        $book = Book::factory()->create();
+        $response = $this->delete(route('api.books.destroy', ['book' => $book->id]));
+
+        $this->assertSame('success', $response->json()['status']);
+        $this->assertSame(204, $response->json()['status_code']);
+        $this->assertSame("The book $book->name was deleted successfully", $response->json()['message']);
+
+        // test if the book was deleted
+        $this->assertDatabaseMissing('books', [
+            'id' => $book->id,
+            'name' => $book->name,
+            'isbn' => $book->isbn,
+            'authors' => $book->authors,
+            'number_of_pages' => $book->number_of_pages,
+            'publisher' => $book->publisher,
+            'country' => $book->country,
+            'release_date' => $book->release_date,
+        ]);
     }
 }
