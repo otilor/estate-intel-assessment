@@ -29,7 +29,7 @@ class BookIndexRequest extends FormRequest
             'name' => 'string',
             'country' => 'string',
             'publisher' => 'string',
-            'release_date' => 'integer',
+            'release_date' => 'date',
         ];
     }
 
