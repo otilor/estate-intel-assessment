@@ -335,11 +335,11 @@ Create a book.
 ```
 
 ### PATCH
-Use the PATCH method to update resources.  If an existing resource is modified then a 200 response code is retrurned to indicate successful completion of the request.
+Use the PATCH method to update resources.
 
 **Example**
 
-Start the HDFS service (update the state of the HDFS service to be ‘STARTED’).
+Update a book.
 
 
     PATCH /api/v1/books/:id
@@ -367,7 +367,7 @@ Start the HDFS service (update the state of the HDFS service to be ‘STARTED’
 
 **Response**
 
-The response code 202 indicates that the server has accepted the instruction to update the resource.  The body of the response contains the ID and href of the request resource that was created to carry out the instruction (see [asynchronous response](#asynchronous-response)).
+
 
     200 Ok
 ```json
