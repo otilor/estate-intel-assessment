@@ -19,7 +19,9 @@ Installation
     - `php artisan migrate`
 - Start server
     - `php artisan serve`
-
+- Run tests
+    - `php artisan test`
+    
 Release Version
 ----
 _Last Updated Fri 4, 2022;  Note that this is the official release of Books V1 API. No breaking changes will be introduced to this version of the API._
