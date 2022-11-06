@@ -4,10 +4,21 @@ Books API v1
 
 The Books API facilitates the management of books in the books data center. This document describes the resources and syntax used in the Books API and is intended for developers who want to integrate our wonderful API.
 
+- [Installation](#installation)
 - [Release Version](#release-version)
 - [Authentication](#authentication)
 - [Management](#management)
 
+
+Installation
+----
+- git clone
+    - `git clone git@github.com:humaneguy/estate-intel-assessment.git`
+- Copy `.env-example` to `.env`
+- Run database migration and seeders
+    - `php artisan migrate`
+- Start server
+    - `php artisan serve`
 
 Release Version
 ----
