@@ -5,6 +5,7 @@ namespace Tests\Feature\Controllers\Api;
 use App\Models\Book;
 use Tests\TestCase;
 use App\Services\BookService;
+use DateTime;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Http;
@@ -486,10 +487,10 @@ class BooksControllerTest extends TestCase
     /**
      * @group books
      */
-    public function testGetBookByReleaseDate()
+    public function testGetBookByReleaseDateYear()
     {
         $book = Book::factory()->create();
-        $response = $this->get(route('api.books.index', ['release_date' => $book->release_date]));
+        $response = $this->get(route('api.books.index', ['release_date' => DateTime::createFromFormat('Y-m-d', $book->release_date)->format('Y')]));
 
         $response->assertOk();
         $this->assertSame('success', $response->json()['status']);
